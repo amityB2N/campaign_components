@@ -1,0 +1,60 @@
+/* React 應用程式的基本樣式 */
+.App {
+  text-align: center;
+  min-height: 100vh;
+  background: #d52b1e;
+}
+
+/* 確保 React 組件不會干擾原始專案的樣式 */
+.App * {
+  box-sizing: border-box;
+}
+
+/* 整合原始專案的背景樣式 */
+body {
+  background: #d52b1e;
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+/* 確保原始專案的 main 元素樣式正確 */
+main.bid {
+  background: url(https://s3-ap-northeast-1.amazonaws.com/ac.ezimport.co.jp/image/bid/images/event/2025/0601event/images/fixedbg.png);
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: 1920px;
+}
+
+main.stickBg {
+  transition: linear .1s;
+}
+
+main.move {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center top;
+  transition: linear .1s;
+}
+
+@media screen and (max-width: 992px) {
+  main.bid {
+    background: #d52b1e;
+  }
+}
+
+/* 確保 header 樣式正確 */
+header {
+  background: white;
+}
+
+/* 確保原始專案的響應式設計 */
+@media screen and (max-width: 768px) {
+  .robot_line_share_up {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .robot_line_share_up {
+    display: none;
+  }
+}

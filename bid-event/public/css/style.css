@@ -1,0 +1,446 @@
+@charset "UTF-8";
+
+/* 基本字體設定 */
+* {
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+/* 基本背景設定 */
+body {
+  background: #1a1a1a;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header 樣式 */
+header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+header .fmmart_event_header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  height: 44px;
+  width: 100%;
+  max-width: 900px;
+  box-sizing: border-box;
+}
+
+header .fmmart_event_header .fm_hd_box {
+  width: 100%;
+  position: relative;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+header .fmmart_event_header .fm_hd_box .btn_list {
+  position: absolute;
+  left: 0;
+  display: flex;
+  align-items: center;
+}
+
+header .fmmart_event_header .fmmart_icon {
+  font-size: 2.25rem;
+  line-height: 2.25rem;
+}
+
+header .back_icon {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  color: #6f6f6f;
+}
+
+header .home_icon {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  color: #6f6f6f;
+}
+
+header .fmmart_event_header .fmmart_return {
+  border: none;
+  outline: 0;
+  background-color: rgba(0, 0, 0, 0);
+  display: flex;
+  height: 44px;
+  width: 44px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+}
+
+header .fmmart_event_header .fmmart_title {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 500;
+  font-family: "微軟正黑體", system-ui, sans-serif;
+  text-align: center;
+  margin: 0;
+}
+
+/* Main 背景設定 - 改為深色主題 */
+main.bid {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+}
+
+main.stickBg {
+  transition: linear 0.1s;
+}
+
+main.move {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center top;
+  transition: linear 0.1s;
+}
+
+@media screen and (max-width: 992px) {
+  main.bid {
+    background: #1a1a1a;
+  }
+}
+
+/* 導航樣式 - 改為現代化設計 */
+#customNav {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 0;
+}
+
+#customNav ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+#customNav a {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  white-space: nowrap;
+}
+
+#customNav a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+#customNav a.active {
+  background: #ff6b35;
+  color: #ffffff;
+  border-color: #ff6b35;
+}
+
+/* Banner 區域樣式 */
+.banner_area {
+  background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+  background-repeat: repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 2rem 0;
+}
+
+@media screen and (max-width: 800px) {
+  .banner_area {
+    background-size: 100%;
+  }
+}
+
+.banner_area .cs_slide {
+  display: flex;
+}
+
+/* 滑動器分頁樣式 */
+.banner_area .bnSliderPagination .custom_bullet {
+  opacity: 0.7;
+  width: 12px;
+  height: 12px;
+  margin: 0 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 576px) {
+  .banner_area .bnSliderPagination .custom_bullet {
+    width: 8px;
+    height: 8px;
+    margin: 0 4px;
+  }
+}
+
+.banner_area .bnSliderPagination .custom_bullet.swiper-pagination-bullet-active {
+  background: #ff6b35;
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* 主要導航標籤樣式 */
+.main_nav_tab {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.main_nav_tab.active {
+  color: #fff;
+  background: #ff6b35;
+  border-color: #ff6b35;
+}
+
+.main_nav_tab.bid.active {
+  background: #ff6b35;
+}
+
+.main_nav_tab.buyjp.active {
+  background: #ff6b35;
+}
+
+.main_nav_tab.rakuma.active {
+  background-color: #ff6b35;
+}
+
+.main_nav_tab.mercari.active {
+  background-color: #ff6b35;
+}
+
+/* 產品子標籤樣式 */
+.pd_sub_tab {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.pd_sub_tab.active {
+  background: #ff6b35;
+  color: #fff;
+  border-color: #ff6b35;
+}
+
+.pd_sub_tab.mercari.active {
+  background: #ff6b35;
+}
+
+.pd_sub_tab.drug.active {
+  background: #ff6b35;
+}
+
+/* 規則按鈕樣式 */
+.rule_btn {
+  border: 2px solid #ff6b35;
+  background-color: #ff6b35;
+  padding: 8px 16px;
+  color: #fff;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.rule_btn.active {
+  background-color: #ffffff;
+  color: #ff6b35;
+}
+
+.rule_btn.bid {
+  border: 2px solid #ff6b35;
+  background-color: #ff6b35;
+}
+
+.rule_btn.bid.active {
+  background-color: #ffffff;
+  color: #ff6b35;
+}
+
+.rule_btn.drug {
+  border: 2px solid #ff6b35;
+  background-color: #ff6b35;
+}
+
+.rule_btn.drug.active {
+  background-color: #ffffff;
+  color: #ff6b35;
+}
+
+/* 規則標題樣式 */
+.rule_li_title {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  height: 2ch;
+  color: #ffffff;
+}
+
+.rule_li_title::before {
+  content: "";
+  display: block;
+  width: 0.4rem;
+  height: 100%;
+  margin-right: 0.5ch;
+  background-color: #ff6b35;
+  border-radius: 2px;
+}
+
+.rule_panel li a {
+  color: #ff6b35;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.rule_panel li a:hover {
+  color: #ff8c5a;
+}
+
+/* 動畫效果 */
+.hvr_bounce,
+.hvr_scale1 {
+  transition: ease-in-out 0.2s;
+}
+
+@media screen and (min-width: 640px) {
+  .hvr_bounce:hover {
+    transition: ease-in-out 0.2s;
+    animation: bounce 0.5s infinite ease-in-out;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .hvr_scale1:hover {
+    transition: ease-in-out 0.2s;
+    transform: scale(0.95);
+  }
+}
+
+.hvr_rotate {
+  animation: rotateAnimationSM 1.2s infinite ease-in-out;
+}
+
+@media screen and (min-width: 640px) {
+  .hvr_rotate:hover {
+    animation: rotateAnimation 0.4s infinite ease-in-out;
+  }
+}
+
+@keyframes rotateAnimation {
+  0% {
+    transform: rotate(-5deg) scale(1.1);
+  }
+  50% {
+    filter: drop-shadow(2px 2px 20px rgba(255, 107, 53, 0.3));
+    transform: rotate(5deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(-5deg) scale(1.1);
+  }
+}
+
+@keyframes rotateAnimationSM {
+  0% {
+    transform: rotate(0) scale(1);
+  }
+  25% {
+    filter: drop-shadow(2px 2px 20px rgba(255, 107, 53, 0.3));
+    transform: rotate(5deg) scale(1);
+  }
+  50% {
+    transform: rotate(-5deg) scale(1);
+  }
+  75% {
+    filter: drop-shadow(2px 2px 20px rgba(255, 107, 53, 0.3));
+    transform: rotate(5deg) scale(1);
+  }
+  100% {
+    transform: rotate(0) scale(1);
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: scale(0.95);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.95);
+  }
+}
+
+/* 載入動畫 */
+.donut {
+  width: 2rem;
+  height: 2rem;
+  margin: 2rem;
+  border-radius: 50%;
+  border: 0.3rem solid rgba(255, 107, 53, 0.3);
+  border-top-color: #ff6b35;
+  animation: 1.5s spin infinite linear;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 響應式設計 */
+@media screen and (max-width: 768px) {
+  #customNav ul {
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+  }
+  
+  #customNav a {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .banner_area {
+    padding: 1rem 0;
+  }
+}
+
+/* 滾動條樣式 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff6b35;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff8c5a;
+}
