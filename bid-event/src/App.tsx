@@ -5,6 +5,8 @@ import Main from './components/Main';
 import NavBar from './components/NavBar';
 import Banner from './components/Banner';
 import Top3Section from './components/Top3Section';
+import Qa from './components/Qa';
+import Rule from './components/Rule';
 import { usePageSheetData } from './hooks/usePageSheetData';
 
 function App() {
@@ -22,6 +24,8 @@ function App() {
   const navData = allData.filter((item: any) => item.position === 'navigator');
   const bannerData = allData.filter((item: any) => item.position === 'banner');
   const typeEData = allData.filter((item: any) => item.blockType === 'typeE');
+  const qaData = allData.filter((item: any) => item.blockType === 'qa');
+  const ruleData = allData.filter((item: any) => item.blockType === 'rule');
 
   return (
     <div className="App">
@@ -33,6 +37,12 @@ function App() {
           data={typeEData}
           positionId="top3-section-1"
         />
+      )}
+      {qaData.length > 0 && (
+        <Qa data={qaData} positionId="qaSection" />
+      )}
+      {ruleData.length > 0 && (
+        <Rule data={ruleData} positionId="ruleSection" />
       )}
       <Main />
     </div>
