@@ -1,4 +1,4 @@
-import React, { useState, memo, useMemo } from 'react';
+import React, { useState, memo, useMemo, useEffect, useRef } from 'react';
 
 interface BannerItem {
   image: string;
@@ -70,11 +70,17 @@ const BannerRightSlider: React.FC<{
   onPrev: () => void;
   onNext: () => void;
   onDotClick: (index: number) => void;
-}> = memo(({ prodSliderArr, rightIdx, onPrev, onNext, onDotClick }) => {
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+}> = memo(({ prodSliderArr, rightIdx, onPrev, onNext, onDotClick, onMouseEnter, onMouseLeave }) => {
   if (prodSliderArr.length === 0) return null;
   const item = prodSliderArr[rightIdx];
   return (
-    <div className="h-full flex items-center relative">
+    <div 
+      className="h-full flex items-center relative"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       {/* 左箭頭 */}
       <div className="z-[4] absolute top-[44%] w-[24px] sm:w-[34px] p-1 left-0 bnSliderPrev cursor-pointer" onClick={onPrev}>
         <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" id="圖層_1" x="0px" y="0px" viewBox="0 0 24 28" xmlSpace="preserve">
@@ -158,12 +164,59 @@ const Banner: React.FC<BannerProps> = ({ bannerData }) => {
   // 輪播狀態
   const [leftIdx, setLeftIdx] = useState(0);
   const [rightIdx, setRightIdx] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
   // 輪播切換
   const nextLeft = () => setLeftIdx((prev) => (prev + 1) % txtSliderArr.length);
   const prevLeft = () => setLeftIdx((prev) => (prev - 1 + txtSliderArr.length) % txtSliderArr.length);
   const nextRight = () => setRightIdx((prev) => (prev + 1) % prodSliderArr.length);
   const prevRight = () => setRightIdx((prev) => (prev - 1 + prodSliderArr.length) % prodSliderArr.length);
+
+  // 自動輪播功能
+  useEffect(() => {
+    if (prodSliderArr.length <= 1 || !isAutoPlaying) {
+      if (autoPlayRef.current) {
+        clearInterval(autoPlayRef.current);
+        autoPlayRef.current = null;
+      }
+      return;
+    }
+
+    autoPlayRef.current = setInterval(() => {
+      nextRight();
+    }, 3000); // 3秒延遲
+
+    return () => {
+      if (autoPlayRef.current) {
+        clearInterval(autoPlayRef.current);
+        autoPlayRef.current = null;
+      }
+    };
+  }, [prodSliderArr.length, isAutoPlaying, rightIdx]);
+
+  // 手動控制時暫停自動輪播
+  const handleManualControl = (action: () => void) => {
+    // 暫停自動輪播
+    setIsAutoPlaying(false);
+    
+    // 執行手動操作
+    action();
+    
+    // 3秒後恢復自動輪播
+    setTimeout(() => {
+      setIsAutoPlaying(true);
+    }, 3000);
+  };
+
+  // 手動輪播函數
+  const manualNextRight = () => handleManualControl(nextRight);
+  const manualPrevRight = () => handleManualControl(prevRight);
+  const manualSetRightIdx = (index: number) => handleManualControl(() => setRightIdx(index));
+
+  // 滑鼠懸停控制
+  const handleMouseEnter = () => setIsAutoPlaying(false);
+  const handleMouseLeave = () => setIsAutoPlaying(true);
 
   if (!currentBgItem) return null;
 
@@ -197,9 +250,11 @@ const Banner: React.FC<BannerProps> = ({ bannerData }) => {
               <BannerRightSlider
                 prodSliderArr={prodSliderArr}
                 rightIdx={rightIdx}
-                onPrev={prevRight}
-                onNext={nextRight}
-                onDotClick={setRightIdx}
+                onPrev={manualPrevRight}
+                onNext={manualNextRight}
+                onDotClick={manualSetRightIdx}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
               />
             </div>
           </div>
