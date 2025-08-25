@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Main from './components/Main';
 import NavBar from './components/NavBar';
 import Banner from './components/Banner';
+import Top3Section from './components/Top3Section';
 import { usePageSheetData } from './hooks/usePageSheetData';
 
 function App() {
@@ -20,12 +21,19 @@ function App() {
   const headerData = allData.filter((item: any) => item.position === 'header');
   const navData = allData.filter((item: any) => item.position === 'navigator');
   const bannerData = allData.filter((item: any) => item.position === 'banner');
+  const typeEData = allData.filter((item: any) => item.blockType === 'typeE');
 
   return (
     <div className="App">
       <Header data={headerData} />
       <NavBar navData={navData} />
       <Banner bannerData={bannerData} />
+      {typeEData.length > 0 && (
+        <Top3Section
+          data={typeEData}
+          positionId="top3-section-1"
+        />
+      )}
       <Main />
     </div>
   );
