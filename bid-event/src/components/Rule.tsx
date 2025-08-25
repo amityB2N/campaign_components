@@ -66,11 +66,23 @@ const Rule: React.FC<RuleProps> = ({ data, positionId = 'ruleSection' }) => {
 
         <div className="w-full flex flex-col">
           {/* Tabs */}
-          <ul className="flex flex-wrap gap-1 justify-center my-2 sm:my-4 ruleTabList sm:max-w-[96%] mx-auto">
+          <ul
+            className="flex flex-wrap gap-1 justify-center my-2 sm:my-4 ruleTabList sm:max-w-[96%] mx-auto"
+            role="tablist"
+            aria-label="活動規則分頁"
+          >
             {groups.map((group, index) => (
               <li
                 key={group.key}
-                className={`rule_btn ${index === activeIdx ? 'active' : ''} flex justity-center items-center text-center md:text-[18px] cursor-pointer px-2 py-1 rounded`}
+                role="tab"
+                tabIndex={index === activeIdx ? 0 : -1}
+                aria-selected={index === activeIdx}
+                aria-controls={`panel-${group.key}`}
+                className={`rule_btn flex justity-center items-center text-center md:text-[18px] cursor-pointer px-3 py-1 rounded transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-[#39ADFF] ${
+                  index === activeIdx
+                    ? 'bg-[#39ADFF]/10 text-[#39ADFF] border border-[#39ADFF]'
+                    : 'bg-transparent text-black hover:bg-black/5'
+                }`}
                 data-group={`group${group.key}`}
                 data-scopename={group.tabs[0]?.scopename || ''}
                 data-eventvalue={group.tabs[0]?.eventvalue || ''}
@@ -85,7 +97,12 @@ const Rule: React.FC<RuleProps> = ({ data, positionId = 'ruleSection' }) => {
           {groups.map((group, index) => (
             <div
               key={`panel-${group.key}`}
-              className={`rule_panel p-4 mb-4 lg:text-[18px] ${index === activeIdx ? '' : 'hidden'}`}
+              id={`panel-${group.key}`}
+              role="tabpanel"
+              aria-labelledby={`tab-${group.key}`}
+              className={`rule_panel p-4 mb-4 lg:text-[18px] transition-all duration-300 ease-out overflow-hidden ${
+                index === activeIdx ? 'opacity-100 max-h-[2000px]' : 'opacity-0 max-h-0'
+              }`}
               data-group={`group${group.key}`}
             >
               {/* 活動名稱 */}
