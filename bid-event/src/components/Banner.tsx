@@ -49,7 +49,7 @@ const BannerLeftSlider: React.FC<{
         data-eventvalue={item.eventvalue}
         href={item.isLink ? item.url : undefined}
         target={item.isLink ? '_blank' : undefined}
-        className={item.isLink ? '' : 'anchor_btn'}
+        className={item.isLink ? '' : 'anchor_btn'} rel="noreferrer"
       >
         <img
           src={item.image}
@@ -69,18 +69,47 @@ const BannerRightSlider: React.FC<{
   rightIdx: number;
   onPrev: () => void;
   onNext: () => void;
-}> = memo(({ prodSliderArr, rightIdx, onPrev, onNext }) => {
+  onDotClick: (index: number) => void;
+}> = memo(({ prodSliderArr, rightIdx, onPrev, onNext, onDotClick }) => {
   if (prodSliderArr.length === 0) return null;
   const item = prodSliderArr[rightIdx];
   return (
-    <div className="h-full flex items-center">
-      <button onClick={onPrev}>&lt;</button>
+    <div className="h-full flex items-center relative">
+      {/* 左箭頭 */}
+      <div className="z-[4] absolute top-[44%] w-[24px] sm:w-[34px] p-1 left-0 bnSliderPrev cursor-pointer" onClick={onPrev}>
+        <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" id="圖層_1" x="0px" y="0px" viewBox="0 0 24 28" xmlSpace="preserve">
+          <path d="M1.1,15.9c-1.4-0.8-1.4-2.9,0-3.7L20.3,1.1c1.4-0.8,3.2,0.2,3.2,1.8v22.2c0,1.6-1.8,2.7-3.2,1.8L1.1,15.9z" fill="black" transform="scale(0.8, 0.8)"/>
+        </svg>
+      </div>
+      
+      {/* 右箭頭 */}
+      <div className="z-[4] absolute top-[44%] w-[24px] sm:w-[34px] p-1 right-0 bnSliderNext cursor-pointer" onClick={onNext}>
+        <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" id="圖層_1" x="0px" y="0px" viewBox="0 0 24 28" xmlSpace="preserve">
+          <path d="M1.1,15.9c-1.4-0.8-1.4-2.9,0-3.7L20.3,1.1c1.4-0.8,3.2,0.2,3.2,1.8v22.2c0,1.6-1.8,2.7-3.2,1.8L1.1,15.9z" fill="black" transform="scale(-0.8, 0.8) translate(-24, 0)"/>
+        </svg>
+      </div>
+
+      {/* 點點導航 */}
+      {prodSliderArr.length > 1 && (
+        <div className="z-[4] absolute bottom-[10%] left-1/2 transform -translate-x-1/2 flex space-x-2">
+          {prodSliderArr.map((_, index) => (
+            <div
+              key={index}
+              className={`w-2 h-2 rounded-full cursor-pointer transition-all duration-300 ${
+                index === rightIdx ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/75'
+              }`}
+              onClick={() => onDotClick(index)}
+            />
+          ))}
+        </div>
+      )}
+
       <a
         href={item.isLink ? item.url : undefined}
         target={item.isLink ? '_blank' : undefined}
         className={`swiper-slide cs_slide flex-col justify-end items-center ${item.isLink ? '' : 'anchor_btn'}`}
         data-scopename={item.scopename}
-        data-eventvalue={item.eventvalue}
+        data-eventvalue={item.eventvalue} rel="noreferrer"
       >
         <img
           src={item.image}
@@ -99,13 +128,13 @@ const BannerRightSlider: React.FC<{
           </div>
         </div>
       </a>
-      <button onClick={onNext}>&gt;</button>
     </div>
   );
 });
 
 const Banner: React.FC<BannerProps> = ({ bannerData }) => {
-  const now = Date.now();
+  // const now = Date.now();
+  const now = new Date("2025-06-01T12:00:00").getTime(); // 模擬6月1日時間
 
   // 用 useMemo 避免不必要的重算
   const { currentBgItem, txtSliderArr, prodSliderArr } = useMemo(() => {
@@ -143,6 +172,11 @@ const Banner: React.FC<BannerProps> = ({ bannerData }) => {
       className="anchor_section banner_area relative z-[3]"
       style={{ backgroundImage: `url(${currentBgItem.image})` }}
     >
+      {/* 這段用來印出 bannerData JSON */}
+    {/* <pre style={{ color: 'white', background: 'rgba(0,0,0,0.5)', padding: 10, maxHeight: 200, overflow: 'auto' }}>
+      {JSON.stringify(bannerData, null, 2)}
+    </pre> */}
+
       <div className="max-w-[800px] w-full mx-auto relative h-full">
         <BannerBg bgItem={currentBgItem} />
         <div className="absolute left-0 top-0 w-full h-full flex">
@@ -165,6 +199,7 @@ const Banner: React.FC<BannerProps> = ({ bannerData }) => {
                 rightIdx={rightIdx}
                 onPrev={prevRight}
                 onNext={nextRight}
+                onDotClick={setRightIdx}
               />
             </div>
           </div>
